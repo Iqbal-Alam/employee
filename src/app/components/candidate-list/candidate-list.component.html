@@ -1,0 +1,110 @@
+<div class="container">
+    <div class="row card mt-20">
+        <h2 class="text-center fs-20 p-20">Candidate Details</h2>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="text" class="form-control" id="searchByName" placeholder="Search By Name...." [(ngModel)]="searchText">
+            </div>
+        </div>
+        
+        <div class="col-sm-12">
+            <table class="table table-hover">
+                <thead class="">
+                    <tr>
+                        <th scope="col" *ngFor="let header of candidateTableHeader; let i = index" class="headerBG">
+                            <ng-container [ngSwitch]="header">
+                                <div class="tableHeader nameHeader" *ngSwitchCase="'Name'">
+                                    <span>
+                                        {{header}}
+                                    </span>
+                                    <span class="upArrow nameSort" (click)="sortBy('name_asc')">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-short"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+                                        </svg>
+                                    </span>
+                                    <span class="downArrow nameSort" (click)="sortBy('name_dsc')">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-short"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                                        </svg>
+                                    </span>
+
+                                </div>
+                                <div class="tableHeader joiningDateHeader" *ngSwitchCase="'Joining Date'">
+                                    <span>
+                                        {{header}}
+                                    </span>
+                                    <span class="upArrow dateSort" (click)="sortBy('joining_date_asc')">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up-short"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z" />
+                                        </svg>
+                                    </span>
+                                    <span class="downArrow dateSort" (click)="sortBy('joining_date_dsc')">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-short"
+                                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z" />
+                                        </svg>
+                                    </span>
+                                </div>
+                                <div class="tableHeader" *ngSwitchDefault>
+                                    <span>
+                                        {{header}}
+                                    </span>
+                                </div>
+                            </ng-container>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let candidate of candidateList | candidateNameFilter:searchText" >
+                        <th scope="row">{{candidate.id}}</th>
+                        <td>{{candidate.name}}</td>
+                        <td>{{candidate.department}}</td>
+                        <td>{{candidate.joining_date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row mt-20 flex-center">
+        <h2 class="text-center w100 mb-20 fs-20 pb-30" >Distinct departments and count of candidates</h2>
+        <div class="col-sm-3" *ngFor="let distinct of distinctCountList">
+            <button type="button" class="btn btn-info">
+            {{distinct.department}} <span class="badge badge-light">{{distinct.count}}</span>
+            </button>
+        </div>
+        
+    </div>
+
+    <div class="row card mt-20 mb-20">
+        <div class="col-sm-12">
+            <h2 class="text-center fs-20 p-20">Candidates having more than 2 years of experience</h2>
+            <table class="table table-hover">
+                <thead class="">
+                    <tr>
+                        <th scope="col" *ngFor="let header of candidateTableHeader; let i = index" class="headerBG">
+                            {{header}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let candidate of experiencedCandidateList; let i = index" >
+                        <th scope="row">{{candidate.id}}</th>
+                        <td>{{candidate.name}}</td>
+                        <td>{{candidate.department}}</td>
+                        <td>{{candidate.joining_date}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+</div>

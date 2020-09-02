@@ -1,0 +1,46 @@
+.nameSort{
+    visibility: hidden;
+}
+.dateSort{
+    visibility: hidden;
+  }
+.nameHeader:hover .nameSort{
+    visibility: visible;
+    cursor: pointer;
+}
+.joiningDateHeader:hover .dateSort{
+    visibility: visible;
+    cursor: pointer;
+}
+.headerBG{
+    background: #17a2b8;
+    color: #fff;
+}
+
+.mt-20{
+    margin-top: 20px;
+}
+.mb-20{
+    margin-bottom: 20px;
+}
+
+.flex-center{
+    border: 1px solid #ccc;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.w100{
+    width: 100%;
+}
+.fs-20{
+    font-size: 20px;
+    color: #17a2b8;
+}
+.pb-30{
+    padding-bottom: 30px;
+}
+.p-20{
+    padding: 20px;
+}
