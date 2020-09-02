@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';    
 import { Routes, RouterModule } from '@angular/router';    
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { CandidateListComponent } from './components/candidate-list/candidate-list.component';
+import { EmployeeComponent } from './components/employee/employee.component';
 
 const routes: Routes = [
-  { path: '', component: CandidateListComponent },
+  { path: '',  redirectTo: '/employee', pathMatch: 'full' },
+  { path: 'employee', component: EmployeeComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({    

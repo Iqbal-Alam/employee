@@ -1,22 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { CandidateService } from '../../services/candidate.service';
 
-
 @Component({
-  selector: 'app-candidate-list',
-  templateUrl: './candidate-list.component.html',
-  styleUrls: ['./candidate-list.component.scss']
+  selector: 'app-employee',
+  templateUrl: './employee.component.html',
+  styleUrls: ['./employee.component.scss']
 })
-export class CandidateListComponent implements OnInit {
+export class EmployeeComponent implements OnInit {
+
   candidateTableHeader = ['id', 'Name', 'Department', 'Joining Date'];
-  candidateList: any = [];
+  candidateWithoutDevelopment: any = [];
   candidateData: any = [];
   experiencedCandidateList: any = [];
   distinctCountList: any = [];
+  searchText:any;
   constructor(private _cs: CandidateService) { }
 
   ngOnInit(): void {
     this.getCandidateList();
+    console.log('welcome');
   }
 
   getCandidateList() {
@@ -25,10 +27,10 @@ export class CandidateListComponent implements OnInit {
         if (res) {
           this.candidateData = res;
           let uniqueArray = []
-          this.candidateList = this.candidateData.filter(function (event) {
+          this.candidateWithoutDevelopment = this.candidateData.filter(function (event) {
             return event.department != 'Development';
           });
-          this.candidateList.map((data) => {
+          this.candidateData.map((data) => {
             var dateParts = data.joining_date.split("/");
             var dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
             let joining_date = dateObject;
@@ -43,7 +45,7 @@ export class CandidateListComponent implements OnInit {
               this.experiencedCandidateList.push(data);
             }
 
-            const distinctCount = this.candidateList
+            const distinctCount = this.candidateData
               .map(({ department }) => department)
               .reduce((names, department) => {
                 const count = names[department] || 0;
@@ -64,19 +66,19 @@ export class CandidateListComponent implements OnInit {
   sortBy(fieldName) {
     switch (fieldName) {
       case 'name_asc': {
-        return this.candidateList.sort(function (a, b) {
+        return this.candidateData.sort(function (a, b) {
           var x = a.name < b.name ? -1 : 1;
           return x;
         });
       }
       case 'name_dsc': {
-        return this.candidateList.sort(function (a, b) {
+        return this.candidateData.sort(function (a, b) {
           var x = a.name > b.name ? -1 : 1;
           return x;
         });
       }
       case 'joining_date_asc': {
-        return this.candidateList.sort(function (a, b) {
+        return this.candidateData.sort(function (a, b) {
           var aJoin = a.joining_date.split("/");
           var bJoin = b.joining_date.split("/");
           var aJoinObject = new Date(+aJoin[2], aJoin[1] - 1, +aJoin[0]);
@@ -85,7 +87,7 @@ export class CandidateListComponent implements OnInit {
         });
       }
       case 'joining_date_dsc': {
-        return this.candidateList.sort(function (a, b) {
+        return this.candidateData.sort(function (a, b) {
           var aJoin = a.joining_date.split("/");
           var bJoin = b.joining_date.split("/");
           var aJoinObject = new Date(+aJoin[2], aJoin[1] - 1, +aJoin[0]);
@@ -95,5 +97,4 @@ export class CandidateListComponent implements OnInit {
       }
     }
   }
-
 }
